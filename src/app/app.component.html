@@ -1,0 +1,127 @@
+<form id="user-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <h1>Register</h1>
+  <div class="form-group">
+    <label for="username"> Username </label>
+    <input
+      id="username"
+      type="text"
+      formControlName="username"
+      minlength="3"
+      maxlength="24"
+    />
+  </div>
+  <div
+    *ngIf="
+      userForm.controls['username'].invalid &&
+      (userForm.controls['username'].dirty ||
+        userForm.controls['username'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="userForm.controls['username'].errors.required">
+      Username is required.
+    </div>
+    <div *ngIf="userForm.controls['username'].errors.minlength">
+      Username should be at least 3 characters
+    </div>
+    <div *ngIf="userForm.controls['username'].errors.maxlength">
+      Username should not exceed 24 characters
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email"> Email </label>
+    <input
+      id="email"
+      type="email"
+      ngModel
+      email="true"
+      formControlName="email"
+      required="true"
+    />
+  </div>
+  <div
+    *ngIf="
+      userForm.controls['email'].invalid &&
+      (userForm.controls['email'].dirty || userForm.controls['email'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="userForm.controls['email'].errors.email">
+      Email should be in valid format
+    </div>
+    <div *ngIf="userForm.controls['email'].errors.required">
+      Email is required.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="type">Type </label>
+    <select formControlName="type">
+      <option [ngValue]="null" disabled>Select Type</option>
+      <option *ngFor="let userType of userTypes" [ngValue]="userType.value">
+        {{ userType.label }}
+      </option>
+    </select>
+  </div>
+  <div
+    *ngIf="
+      userForm.controls['type'].invalid &&
+      (userForm.controls['type'].dirty || userForm.controls['type'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="userForm.controls['type'].errors.email">
+      Type should be in valid format
+    </div>
+    <div *ngIf="userForm.controls['type'].errors.required">
+      Type is required.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password"> Password </label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      minlength="3"
+      maxlength="24"
+    />
+  </div>
+  <div
+    *ngIf="
+      userForm.controls['password'].invalid &&
+      (userForm.controls['password'].dirty ||
+        userForm.controls['password'].touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="userForm.controls['password'].errors.required">
+      Password is required.
+    </div>
+    <div *ngIf="userForm.controls['password'].errors.minlength">
+      Password should be at least 3 characters
+    </div>
+    <div *ngIf="userForm.controls['password'].errors.maxlength">
+      Password should not exceed 24 characters
+    </div>
+    <div *ngIf="userForm.controls['password'].errors.pattern">
+      Password should at least have 1 uppercased character, 1 lowercased
+      character and 1 special character
+    </div>
+  </div>
+  <button
+    type="submit"
+    [disabled]="!(userForm.valid && userForm.dirty) || loading"
+    class="btn btn-success"
+  >
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="!loading">Submit</div>
+  </button>
+
+  <div *ngIf="user">
+    User has been submitted with these details: {{ user | json }}
+  </div>
+  <div class="alert" *ngIf="error">Sorry but there has been an error</div>
+
+  <!-- <p>Form value: {{ userForm.value | json }}</p>
+  <p>Form status: {{ userForm.status | json }}</p> -->
+</form>

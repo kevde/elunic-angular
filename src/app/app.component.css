@@ -1,0 +1,18 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+}
+label {
+  display: flex;
+  width: 300px;
+}
+
+.alert {
+  color: red;
+  font-size: 12px;
+}
